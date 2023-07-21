@@ -4,4 +4,4 @@ class Person(
     override var id: Long?,
     val name: String,
     val age: Int
-): Entity
+) : Entity

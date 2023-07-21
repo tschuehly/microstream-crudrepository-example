@@ -16,6 +16,18 @@ class PersonController(
         return personRepository.save(person)
     }
 
+    @PostMapping("/saveAll")
+    fun saveAllPerson(
+        @RequestBody personList: List<Person>
+    ): List<Person> {
+        return personRepository.saveAll(personList)
+    }
+
+    @GetMapping("/findByName")
+    fun findByName(
+        @RequestParam name: String
+    ) = personRepository.findByName(name)
+
     @GetMapping("")
     fun getAll(): List<Person> {
         return personRepository.getAll()

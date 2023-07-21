@@ -6,51 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.util.concurrent.atomic.AtomicLong
 
 @Storage
-class Root{
+class Root {
     @Autowired
     @Transient
     private lateinit var storageManager: StorageManager
+    private val index: AtomicLong = AtomicLong(0)
 
-    val persons = MutableMapStore<Person>(storageManager)
-}
+    val personMap = mutableMapOf<Long, Person>()
 
-class MutableMapStore<T>(
-    @Transient
-    private val storageManager: StorageManager
-) {
-    private var index: AtomicLong = AtomicLong(0)
-    val map: MutableMap<Long, T> = mutableMapOf()
     fun newIndex(): Long {
-        return index.incrementAndGet()
-    }
-    fun store(){
-        storageManager.store(this)
-    }
-}
-
-interface Entity {
-    var id: Long?
-
-}
-
-open class CrudRepository<T : Entity>(
-    private val store: MutableMapStore<T>
-) {
-    fun getAll(): List<T> {
-        return store.map.map { it.value }
+        val newIndex = index.incrementAndGet()
+        storageManager.store(index)
+        return newIndex
     }
 
-    fun getByIdOrNull(id: Long): T? {
-        return store.map[id]
-    }
-
-    fun save(obj: T): T {
-        (obj.id ?: store.newIndex()).let { id ->
-            obj.id = id
-            store.map[id] = obj
-            store.store()
-            return obj
-        }
-
+    fun <T> store(map: MutableMap<Long, T>) {
+        storageManager.store(map)
     }
 }
+
