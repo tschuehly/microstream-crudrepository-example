@@ -1,0 +1,30 @@
+
+GET http://localhost:8080/api/person
+
+###
+
+POST http://localhost:8080/api/person
+Content-Type: application/json
+
+{
+  "name": "Thomas",
+  "age" : 23
+}
+
+###
+POST http://localhost:8080/api/person/saveAll
+Content-Type: application/json
+
+[
+  {
+    "name": "Marc",
+    "age": 23
+  },
+  {
+    "name": "Herbert",
+    "age": 22
+  }
+]
+
+###
+GET http://localhost:8080/api/person/findByName?name=Marc

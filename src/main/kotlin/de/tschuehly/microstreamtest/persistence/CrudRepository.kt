@@ -45,7 +45,7 @@ open class CrudRepository<T : Entity>(
             objMap.values.toList()
         }
     }
-    fun store(){
+    private fun store(){
         root.store(mutableMap)
     }
 
