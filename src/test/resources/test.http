@@ -17,14 +17,14 @@ Content-Type: application/json
 
 [
   {
-    "name": "Marc",
+    "name": "Cassandra",
     "age": 23
   },
   {
-    "name": "Herbert",
+    "name": "Michael",
     "age": 22
   }
 ]
 
 ###
-GET http://localhost:8080/api/person/findByName?name=Marc
+GET http://localhost:8080/api/person/findByName?name=Thomas
